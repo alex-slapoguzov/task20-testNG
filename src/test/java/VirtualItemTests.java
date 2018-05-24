@@ -1,3 +1,4 @@
+import dataProviders.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -16,18 +17,12 @@ public class VirtualItemTests {
     }
 
 
-    @Test
-    public void toStringVirtualItemPositiveTest() {
-        String name = "Windows";
-        double price = 300;
-        double sizeOnDisk = 20000;
-
-        String expected = "Class: class shop.VirtualItem; Name: Windows; Price: 300.0; Size on disk: 20000.0";
-
+    @Test(dataProvider = "virtualItems", dataProviderClass = DataProviders.class)
+    public void toStringVirtualItemPositiveTest(String name, double price, double sizeOnDisk, String expectedResult) {
         virtualItem.setName(name);
         virtualItem.setPrice(price);
         virtualItem.setSizeOnDisk(sizeOnDisk);
 
-        Assert.assertEquals(virtualItem.toString(), expected);
+        Assert.assertEquals(virtualItem.toString(), expectedResult, "Method toString in class VirtualItem doesn't work correctly!");
     }
 }

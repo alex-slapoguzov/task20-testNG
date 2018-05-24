@@ -1,3 +1,4 @@
+import dataProviders.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -16,17 +17,12 @@ public class RealItemTests {
     }
 
 
-    @Test
-    public void toStringRealItemPositiveTest() {
-        String name = "BMW";
-        double price = 25000;
-        double weight = 1600;
-
-        String expected = "Class: class shop.RealItem; Name: BMW; Price: 25000.0; Weight: 1600.0";
-
+    @Test(dataProvider = "realItems", dataProviderClass = DataProviders.class)
+    public void toStringRealItemPositiveTest(String name, double price, double weight, String expectedResult) {
         realItem.setName(name);
         realItem.setPrice(price);
         realItem.setWeight(weight);
-        Assert.assertEquals(realItem.toString(), expected);
+
+        Assert.assertEquals(realItem.toString(), expectedResult);
     }
 }

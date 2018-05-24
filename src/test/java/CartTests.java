@@ -1,3 +1,4 @@
+import dataProviders.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -15,28 +16,21 @@ public class CartTests {
 
     @BeforeClass
     public void setUp() {
-        cart = new Cart("igor-cart");
         realItem = new RealItem();
         virtualItem = new VirtualItem();
     }
 
-    @Test
-    public void getTotalPricePositiveTest() {
 
-
-        double priceRealItem = 1000;
-        double priceVirtualItem = 2000;
-
-        double expectTotalPrice = 3600;
-
+    @Test(dataProvider = "totalPrices", dataProviderClass = DataProviders.class)
+    public void getTotalPricePositiveTest(double priceRealItem, double priceVirtualItem, double expectTotalPrice) {
+        cart = new Cart("igor-cart");
         realItem.setPrice(priceRealItem);
         virtualItem.setPrice(priceVirtualItem);
+
 
         cart.addRealItem(realItem);
         cart.addVirtualItem(virtualItem);
 
         Assert.assertEquals(cart.getTotalPrice(), expectTotalPrice);
     }
-
-
 }
