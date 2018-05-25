@@ -1,3 +1,5 @@
+package testsClasses;
+
 import dataProviders.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -17,12 +19,12 @@ public class JsonParserTests {
     private File file;
 
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setUpBeforeClass() {
         jsonParser = new JsonParser();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void cleanResources() {
         file = new File("src/main/resources/");
         for (File item : file.listFiles()) {
@@ -34,7 +36,7 @@ public class JsonParserTests {
     }
 
 
-    @Test(dataProvider = "cartNamesPositive", dataProviderClass = DataProviders.class)
+    @Test(groups = {"smoke", "positive", "allFunctions"}, dataProvider = "cartNamesPositive", dataProviderClass = DataProviders.class)
     public void writeToFileIsFilePresentPositive(String cartName) {
         String fileName = cartName + ".json";
         cart = new Cart(cartName);
@@ -44,7 +46,7 @@ public class JsonParserTests {
         Assert.assertTrue(isFilePresent(fileName));
     }
 
-    @Test(dataProvider = "cartNamesNegative", dataProviderClass = DataProviders.class, enabled = false)
+    @Test(dataProvider = "cartNamesNegative", dataProviderClass = DataProviders.class, enabled = false, groups = {"negative", "allFunctions"})
     public void writeToFileIsFilePresentNegative(String cartName) {
         String fileName = cartName + ".json";
         cart = new Cart(cartName);
@@ -54,7 +56,7 @@ public class JsonParserTests {
         Assert.assertFalse(isFilePresent(fileName));
     }
 
-    @Test(dataProvider = "fileNamesPositive", dataProviderClass = DataProviders.class)
+    @Test(dataProvider = "fileNamesPositive", dataProviderClass = DataProviders.class, groups = {"smoke", "positive", "allFunctions"})
     public void readFromFilePositive(String fileName, double expectedTotalPrice) {
         file = new File(fileName);
 
@@ -63,7 +65,8 @@ public class JsonParserTests {
         Assert.assertEquals(cart.getTotalPrice(), expectedTotalPrice);
     }
 
-    @Test(dataProvider = "expectedExceptions", dataProviderClass = DataProviders.class, expectedExceptions = parser.NoSuchFileException.class)
+    @Test(dataProvider = "expectedExceptions", dataProviderClass = DataProviders.class, expectedExceptions = parser.NoSuchFileException.class,
+            groups = {"exceptions", "allFunctions"})
     public void exceptionTest(String fileName) {
         file = new File(fileName);
         jsonParser.readFromFile(file);

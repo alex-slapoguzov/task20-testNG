@@ -1,0 +1,25 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite3" verbose="1">
+    <test name="JsonParserClassTests">
+        <classes>
+            <class name="testsClasses.JsonParserTests"/>
+        </classes>
+    </test>
+
+    <test name="All Tests">
+        <classes>
+
+            <class name="testsClasses.JsonParserTests">
+                <methods>
+                    <exclude name="exceptionTest"/>
+                </methods>
+            </class>
+
+
+            <class name="testsClasses.VirtualItemTests"/>
+            <class name="testsClasses.RealItemTests"/>
+            <class name="testsClasses.CartTests"/>
+        </classes>
+    </test>
+</suite>

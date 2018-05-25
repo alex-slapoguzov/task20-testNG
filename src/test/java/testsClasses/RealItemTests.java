@@ -1,3 +1,5 @@
+package testsClasses;
+
 import dataProviders.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -10,14 +12,14 @@ public class RealItemTests {
     private RealItem realItem;
 
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setUp() {
         realItem = new RealItem();
 
     }
 
 
-    @Test(dataProvider = "realItems", dataProviderClass = DataProviders.class)
+    @Test(dataProvider = "realItems", dataProviderClass = DataProviders.class, groups = {"smoke", "positive", "allFunctions"})
     public void toStringRealItemPositiveTest(String name, double price, double weight, String expectedResult) {
         realItem.setName(name);
         realItem.setPrice(price);

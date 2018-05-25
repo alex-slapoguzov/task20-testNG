@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="1">
+    <test name="Smoke Test">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="testsClasses.JsonParserTests"/>
+            <class name="testsClasses.CartTests"/>
+            <class name="testsClasses.RealItemTests"/>
+            <class name="testsClasses.VirtualItemTests"/>
+        </classes>
+    </test>
+</suite>
+
+
+
+
+
+
