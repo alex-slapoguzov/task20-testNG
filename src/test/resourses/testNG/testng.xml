@@ -22,4 +22,20 @@
             <class name="testsClasses.CartTests"/>
         </classes>
     </test>
+
+    <test name="Functions Test Without negative and exceptions">
+        <groups>
+            <run>
+                <include name="allFunctions"/>
+                <exclude name="negative"/>
+                <exclude name="exceptions"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="testsClasses.JsonParserTests"/>
+            <class name="testsClasses.CartTests"/>
+            <class name="testsClasses.RealItemTests"/>
+            <class name="testsClasses.VirtualItemTests"/>
+        </classes>
+    </test>
 </suite>

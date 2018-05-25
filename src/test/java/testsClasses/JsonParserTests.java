@@ -57,12 +57,13 @@ public class JsonParserTests {
     }
 
     @Test(dataProvider = "fileNamesPositive", dataProviderClass = DataProviders.class, groups = {"smoke", "positive", "allFunctions"})
-    public void readFromFilePositive(String fileName, double expectedTotalPrice) {
+    public void readFromFilePositive(String fileName, double expectedTotalPrice, String expectedCartName) {
         file = new File(fileName);
 
         cart = jsonParser.readFromFile(file);
 
         Assert.assertEquals(cart.getTotalPrice(), expectedTotalPrice);
+        Assert.assertEquals(cart.getCartName(), expectedCartName);
     }
 
     @Test(dataProvider = "expectedExceptions", dataProviderClass = DataProviders.class, expectedExceptions = parser.NoSuchFileException.class,

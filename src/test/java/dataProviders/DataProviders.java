@@ -57,8 +57,8 @@ public class DataProviders {
     @DataProvider(name = "fileNamesPositive")
     public static Object[][] readFromFileNameFilePositive() {
         return new Object[][]{
-                {"src\\test\\resourses\\json\\eugen-cart.json", new Double(26560.68)},
-                {"src\\test\\resourses\\json\\andrew-cart.json", new Double(38445.479999999996)}
+                {"src\\test\\resourses\\json\\eugen-cart.json", new Double(26560.68), "eugen-cart"},
+                {"src\\test\\resourses\\json\\andrew-cart.json", new Double(38445.479999999996), "andrew-cart"}
         };
     }
 
