@@ -1,6 +1,6 @@
 package testsClasses;
 
-import dataProviders.DataProviders;
+import dataProviders.DataProviderForTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -11,13 +11,11 @@ import shop.Cart;
 
 import java.io.File;
 
-public class JsonParserTests {
-
+public class JsonParserTest {
 
     private Parser jsonParser;
     private Cart cart;
     private File file;
-
 
     @BeforeClass(alwaysRun = true)
     public void setUpBeforeClass() {
@@ -32,11 +30,9 @@ public class JsonParserTests {
                 item.delete();
             }
         }
-
     }
 
-
-    @Test(groups = {"smoke", "positive", "allFunctions"}, dataProvider = "cartNamesPositive", dataProviderClass = DataProviders.class)
+    @Test(groups = {"smoke", "positive", "allFunctions"}, dataProvider = "cartNamesPositive", dataProviderClass = DataProviderForTest.class)
     public void writeToFileIsFilePresentPositive(String cartName) {
         String fileName = cartName + ".json";
         cart = new Cart(cartName);
@@ -46,7 +42,7 @@ public class JsonParserTests {
         Assert.assertTrue(isFilePresent(fileName));
     }
 
-    @Test(dataProvider = "cartNamesNegative", dataProviderClass = DataProviders.class, enabled = false, groups = {"negative", "allFunctions"})
+    @Test(dataProvider = "cartNamesNegative", dataProviderClass = DataProviderForTest.class, enabled = false, groups = {"negative", "allFunctions"})
     public void writeToFileIsFilePresentNegative(String cartName) {
         String fileName = cartName + ".json";
         cart = new Cart(cartName);
@@ -56,7 +52,7 @@ public class JsonParserTests {
         Assert.assertFalse(isFilePresent(fileName));
     }
 
-    @Test(dataProvider = "fileNamesPositive", dataProviderClass = DataProviders.class, groups = {"smoke", "positive", "allFunctions"})
+    @Test(dataProvider = "fileNamesPositive", dataProviderClass = DataProviderForTest.class, groups = {"smoke", "positive", "allFunctions"})
     public void readFromFilePositive(String fileName, double expectedTotalPrice, String expectedCartName) {
         file = new File(fileName);
 
@@ -66,18 +62,15 @@ public class JsonParserTests {
         Assert.assertEquals(cart.getCartName(), expectedCartName);
     }
 
-    @Test(dataProvider = "expectedExceptions", dataProviderClass = DataProviders.class, expectedExceptions = parser.NoSuchFileException.class,
+    @Test(dataProvider = "expectedExceptions", dataProviderClass = DataProviderForTest.class, expectedExceptions = parser.NoSuchFileException.class,
             groups = {"exceptions", "allFunctions"})
     public void exceptionTest(String fileName) {
         file = new File(fileName);
         jsonParser.readFromFile(file);
     }
 
-
     public boolean isFilePresent(String fileName) {
         file = new File("src/main/resources/" + fileName);
-        if (file.exists()) {
-            return true;
-        } else return false;
+        return file.exists();
     }
 }

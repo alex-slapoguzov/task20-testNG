@@ -1,25 +1,21 @@
 package testsClasses;
 
-import dataProviders.DataProviders;
+import dataProviders.DataProviderForTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import shop.VirtualItem;
 
-public class VirtualItemTests {
-
+public class VirtualItemTest {
 
     private VirtualItem virtualItem;
 
-
     @BeforeClass(alwaysRun = true)
     public void setUp() {
-
         virtualItem = new VirtualItem();
     }
 
-
-    @Test(dataProvider = "virtualItems", dataProviderClass = DataProviders.class, groups = {"smoke", "positive", "allFunctions"})
+    @Test(dataProvider = "virtualItems", dataProviderClass = DataProviderForTest.class, groups = {"smoke", "positive", "allFunctions"})
     public void toStringVirtualItemPositiveTest(String name, double price, double sizeOnDisk, String expectedResult) {
         virtualItem.setName(name);
         virtualItem.setPrice(price);

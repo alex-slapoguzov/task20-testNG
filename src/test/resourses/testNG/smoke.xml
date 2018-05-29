@@ -8,10 +8,10 @@
             </run>
         </groups>
         <classes>
-            <class name="testsClasses.JsonParserTests"/>
-            <class name="testsClasses.CartTests"/>
-            <class name="testsClasses.RealItemTests"/>
-            <class name="testsClasses.VirtualItemTests"/>
+            <class name="testsClasses.JsonParserTest"/>
+            <class name="testsClasses.CartTest"/>
+            <class name="testsClasses.RealItemTest"/>
+            <class name="testsClasses.VirtualItemTest"/>
         </classes>
     </test>
 </suite>
