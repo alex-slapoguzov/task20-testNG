@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import parser.JsonParser;
 import parser.Parser;
 import shop.Cart;
@@ -39,7 +40,7 @@ public class JsonParserTest {
 
         jsonParser.writeToFile(cart);
 
-        Assert.assertTrue(isFilePresent(fileName));
+        Assert.assertTrue(isFilePresent(fileName), "File wasn't created!");
     }
 
     @Test(dataProvider = "cartNamesNegative", dataProviderClass = DataProviderForTest.class, enabled = false, groups = {"negative", "allFunctions"})
@@ -49,7 +50,7 @@ public class JsonParserTest {
 
         jsonParser.writeToFile(cart);
 
-        Assert.assertFalse(isFilePresent(fileName));
+        Assert.assertFalse(isFilePresent(fileName), "File was created, but shouldn't have been!");
     }
 
     @Test(dataProvider = "fileNamesPositive", dataProviderClass = DataProviderForTest.class, groups = {"smoke", "positive", "allFunctions"})
@@ -58,8 +59,10 @@ public class JsonParserTest {
 
         cart = jsonParser.readFromFile(file);
 
-        Assert.assertEquals(cart.getTotalPrice(), expectedTotalPrice);
-        Assert.assertEquals(cart.getCartName(), expectedCartName);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(cart.getTotalPrice(), expectedTotalPrice);
+        softAssert.assertEquals(cart.getCartName(), expectedCartName);
+        softAssert.assertAll();
     }
 
     @Test(dataProvider = "expectedExceptions", dataProviderClass = DataProviderForTest.class, expectedExceptions = parser.NoSuchFileException.class,
